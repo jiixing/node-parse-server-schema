@@ -17,12 +17,12 @@ export function copy(x: any) {
 
 export async function fetch({
   url,
-  ...otpions
+  ...options
 }: {
   url: string;
   [x: string]: any;
 }) {
-  return await nodeFetch(url, otpions).then(parseRequest);
+  return await nodeFetch(url, options).then(parseRequest);
 }
 
 async function parseRequest(res: Response) {

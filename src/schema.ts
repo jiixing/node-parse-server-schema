@@ -27,7 +27,7 @@ export function pickSchema(schema: SchemaInterface): SchemaInterface {
   return {
     className: schema.className,
     fields: schema.fields || {},
-    classLevelPermissions: schema.classLevelPermissions || {},
+    classLevelPermissions: schema.classLevelPermissions,
   };
 }
 
@@ -73,7 +73,7 @@ export async function getRemoteSchema(
       "X-Parse-Master-Key": masterKey,
     },
   })
-    .then((res) => res.results || [])
+    .then((res:any) => res.results || [])
     .then((res) => res.map(pickSchema));
 
   if (filter) {
@@ -167,7 +167,7 @@ async function deleteNonEmptySchemaObjects(
       "X-Parse-Application-Id": appId,
       "X-Parse-Master-Key": masterKey,
     },
-  });
+  }).then((res:any) => res.results ? res : { results: [] });
 
   for await (const entry of objects.results) {
     await fetch({
